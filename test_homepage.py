@@ -7,3 +7,5 @@ class TestHomepage:
     
     def test_homepage(self):
         pass
+    def test_google(self):
+        pass

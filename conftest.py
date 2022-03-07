@@ -4,22 +4,24 @@ from selenium.webdriver.chrome.options import Options as chrome_options
 
 @pytest.fixture
 def get_chrome_options():
-    options = chrome_options
+    options = chrome_options()
     options.add_argument('chrome')
     options.add_argument('start_maximazed')
     options.add_argument('--window-size=800,600')
+    options.add_argument('--ignore-certificate-errors')
+    options.add_argument('--ignore-ssl-errors')
     return options
 
 @pytest.fixture
 def get_webdriver(get_chrome_options): 
     options = get_chrome_options
-    driver = webdriver.Chrome(executable_path='C:/Users/Dench/Desktop/Selenium/', options=options)
+    driver = webdriver.Chrome(executable_path='C:/Users/Dench/Desktop/Selenium/chromedriver.exe', options=options)
     return driver
 
 @pytest.fixture(scope='function')
 def setup(request, get_webdriver):
     driver = get_webdriver
-    url = 'https://www.macys.com/'
+    url = 'https://www.google.com'
     if request.cls is not None:
         request.cls.driver = driver
     driver.get(url)
