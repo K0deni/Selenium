@@ -1,1 +1,0 @@
-##New selenium simple test project##
