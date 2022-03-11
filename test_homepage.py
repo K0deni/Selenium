@@ -1,19 +1,16 @@
 ##New selenium simple test project##
+import time
 import pytest
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.support.ui import WebDriverWait
+from pom.homepage_nav import HomepageNav
 @pytest.mark.usefixtures('setup')
 
 class TestHomepage:
     
-    def test_homepage(self):
-        driver = webdriver.Chrome()
-        driver.implicitly_wait(10)
-        driver.find_element(By.CSS_SELECTOR, '#id_123')
-    
-
-        wait = WebDriverWait(driver, 15)
-        element = wait.until(ec.visibility_of_element_located(By.CSS_SELECTOR, '#id_123'))
+    def test_nav_links(self):
+        homepage_nav = HomepageNav(self.driver)
+        actuall_links = homepage_nav.get_element_text()
+        expected_links = homepage_nav.NAV_LINK_TEXT
+        assert actuall_links == expected_links, 'Validation Nav Links text'
+        homepage_nav.get_nav_link_by_name('Home').click()
+        time.sleep(5)
         

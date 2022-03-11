@@ -7,7 +7,7 @@ def get_chrome_options():
     options = chrome_options()
     options.add_argument('chrome')
     options.add_argument('start_maximazed')
-    options.add_argument('--window-size=800,600')
+    options.add_argument('--window-size=1920,10870')
     options.add_argument('--ignore-certificate-errors')
     options.add_argument('--ignore-ssl-errors')
     return options
@@ -21,9 +21,10 @@ def get_webdriver(get_chrome_options):
 @pytest.fixture(scope='function')
 def setup(request, get_webdriver):
     driver = get_webdriver
-    url = 'https://www.google.com'
+    url = 'http://www.macys.com/'
     if request.cls is not None:
         request.cls.driver = driver
     driver.get(url)
+    driver.delete_all_cookies()
     yield driver 
     driver.quit()    
